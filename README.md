@@ -5,7 +5,6 @@
 > #### I implemented some features:
 - [x] _`Application`_ is hosted on [_`Azure server`_](https://azure.microsoft.com/en-gb/)
 - [x] _`Database`_ is also stored on [_`server`_](https://www.freesqldatabase.com)
-- [x] Beautiful documentation in README.md :)
 
 ## Models
 #### We have a class _`Citizen`_, which has some attributes like _Name_, _Surname_, _Age_, and others.

@@ -8,6 +8,7 @@ using Extensions;
 using Extensions.CitizensFilters;
 using Filters;
 using Models;
+using Domain.Entities;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -36,8 +37,8 @@ public class CitizensController : ControllerBase
 
         return Ok(new IndexViewModel
         {
-            PageViewModel = new (citizens.Count, paginationFilter.Page, paginationFilter.Take),
-            Citizens = citizens.UsePaginationFilter(paginationFilter).Select(c => c.ToDto()), 
+            PageViewModel = new(citizens.Count, paginationFilter.Page, paginationFilter.Take),
+            Citizens = citizens.UsePaginationFilter(paginationFilter).Select(c => c.ToDto()),
         });
     }
 
@@ -53,4 +54,17 @@ public class CitizensController : ControllerBase
 
         return Ok(citizen.ToFullDto());
     }
+
+    [HttpGet("all")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IndexViewModel>> GetAllCitizens()
+    {
+        var citizens = await _citizenService.GetCitizensAsync();
+
+        if (citizens is null) return NotFound();
+
+        return Ok(citizens);
+    }
+
 }
